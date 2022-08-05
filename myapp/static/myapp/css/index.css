@@ -3,10 +3,25 @@
     height: 30px;
     text-align: center;
     padding: 10px 30px;
-    background-color: PaleTurquoise;
+    background-color: white;
     display: block;
     text-decoration: none;
     color: black;
     border-radius: 7px;
-    margin: top 30px;
+    border-color: black;
+    border-style: groove;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+}
+
+.login {
+    margin-top: 75%;
+    margin-bottom: 0%;
+}
+
+.signup {
+    margin-top: 0%;
+    margin-bottom: 70%;
 }
