@@ -1,0 +1,164 @@
+.back_image{
+    width: 40px;
+    height: 40px;
+    margin-left: 0;
+    margin-top: 10px;
+}
+.reload_image{
+    width: 40px;
+    height: 40px;
+    margin-left: 0;
+    margin-top: 10px;
+}
+.reload{
+    
+}
+html{
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body{
+    margin: 0;
+}
+
+.username{
+    font-size: 30px;
+    
+}
+/* ヘッダー */
+.header{
+    width: 100vw;
+    height: 64px;
+    border-bottom: solid 1px #9b9b9b;
+}
+.header-container{
+    display: flex;
+    position: relative;
+    width: 90%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.header-container__title{
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1rem;
+    line-height: 1rem;
+    width: 300px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #000;
+}
+/* メッセージボックス */
+.messagecontainer{
+    margin: 0;
+    padding: 0;
+    border-bottom: solid 1px #000;
+    height: auto;
+
+}
+.messageA{
+    margin: 0;
+    padding: 5px;
+    height: auto;
+    font-size: 20px;
+    background-color: aquamarine;
+    position: right;
+}
+.messageB{
+    font-size: 20px;
+    margin: 0;
+    padding: 5px;
+    height: auto;
+    position: right;
+}
+
+.friend {
+    display: flex;
+    font-size: 15px;
+}
+
+.time {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+
+/* フッター */
+
+.footer-container{
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 5%;
+    text-align: center;
+    border-top: solid 1px #9b9b9b;
+    border-radius: 5px;
+    background-color:rgb(199, 208, 213);
+}
+.footer-container__item{
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #9b9b9b;
+}
+
+form {
+    display: flex;
+    width: 100%;
+}
+
+.textbox{
+    width: 80%;
+    height: 20px;
+    border-radius: 20px;
+}
+
+button{
+    border-radius: 20px;
+    width: 15%;
+    height: 30px;
+}
+
+textarea {
+  padding: 10px;
+  border-radius: 0;
+  resize: none;
+  border: 1px solid transparent;
+  transition: border 0.2s ease-out;
+  outline: none;
+  background-color: #eee;
+}
+
+textarea::-webkit-scrollbar {
+  width: 10px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background-color: #eee;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+}
+
+textarea:focus {
+  border-bottom: 1px solid #e74c3c;
+  box-shadow: none;
+  outline: none;
+}
+
+p{
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+}

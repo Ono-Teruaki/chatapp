@@ -1,34 +1,67 @@
-from django.shortcuts import redirect, render
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, authenticate
-from .forms import SignUpForm
+from audioop import reverse
+from re import I
+# from msilib.schema import ListView
+from django.shortcuts import redirect, render, get_object_or_404
+from django.http import Http404
 
+from django.urls import reverse_lazy
+from myapp.models import CustomUser, Message
+from .forms import SignUpForm, LoginForm, MessageForm
+from django.views.generic import TemplateView, ListView,UpdateView
+from django.views.generic.edit import CreateView 
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, "myapp/index.html")
 
-def signup_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('index')
-        else:
-            form = UserCreationForm()
-    return render(request, "myapp/signup.html")
+class Signup(CreateView):
+    form_class = SignUpForm
+    model = CustomUser
+    template_name = 'myapp/signup.html'
+    success_url = reverse_lazy('index')
 
-def login_view(request):
-    return render(request, "myapp/login.html")
+class Login(LoginView):
+    form_class = LoginForm
+    tamplate_name = 'myapp/login.html'
+
+class Friends(LoginRequiredMixin, ListView):
+    template_name = 'myapp/friends.html'
+    model = CustomUser
+    context_object_name = 'user_list'
+
+    def get_success_url(self):
+        return reverse(kwargs={'pk': self.object.id})
+
+class Logout(LogoutView):
+    template_name = 'myapp/logout.html'
+
+class Talkroom(LoginRequiredMixin, UpdateView,):
+    model = CustomUser
+
 
 def friends(request):
     return render(request, "myapp/friends.html")
 
-def talk_room(request):
-    return render(request, "myapp/talk_room.html")
+@login_required
+def talk_room(request, pk):
+    messages = Message.objects.all()
+    users = CustomUser.objects.all()
+    if request.method == "POST":
+       form = MessageForm(request.POST)
+       if form.is_valid():
+           form.save()
+    else:
+        form = MessageForm()
+
+    context = {
+        "messages": messages,
+        "pk": pk,
+        "form":form,
+        "users":users
+        }
+    return render(request, "myapp/talk_room.html", context)
 
 def setting(request):
     return render(request, "myapp/setting.html")

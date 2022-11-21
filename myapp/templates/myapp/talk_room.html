@@ -1,1 +1,89 @@
-TR
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/talk_room.css' %}" />
+    {% block extra_style %}{% endblock %}
+    <title>DeMiAインターン</title>
+</head>
+<body>
+    {% block header %}
+    <header class="header">
+        <div class="header-container">
+                <div class='back'>
+                    <a href="{% url 'friends' %}">
+                        <img src="{% static 'myapp/img/back_image.jpeg' %}" class="back_image">
+                    </a>
+                </div>
+                <div class="header-container__title">
+                    <div class="username">
+                    {% block header-title %}{{ pk }}{% endblock %}
+                    </div>
+                </div>
+                <div class="reload">
+                    <a href="{% url 'talk_room' pk  %}">
+                        <img src="{% static 'myapp/img/更新ボタン.png' %}" class="reload_image">
+                    </a>
+                </div>
+        </div>
+    </header>
+    {% endblock %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.userA == user.username %}
+                {% if message.userB == pk %}
+                    <div class="messagecontainer">
+                        <div class="messageA">
+                            <div class="friend">
+                                >{{ user.username }}
+                                    <div class="time">
+                                        <div>{{ message.created_date|date:"n/j H:i" }}</div>                                </span>
+                                    </div>
+                            </div>
+                            <div>{{ message.message }}</div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% elif message.userA == pk %}
+            {{ users.Tanaka.Username }}
+                {% if message.userB == user.username %} 
+                    <div class="messagecontainer"> 
+                        <div class="messageB"> 
+                            <div class="friend">
+                            >{{ pk }}
+                                <div class="time">
+                                    <div>{{ message.created_date|date:"n/j H:i" }}</div>                                </span>
+                                </div>
+                            </div>
+                            <div>{{ message.message }}</div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+    {% else %}
+        <p>何か話しかけてみよう！</p>
+    {% endif %}
+
+
+    {% block footer %}
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-container__item">
+                <form method="POST">
+                    {{ forms.as_p }}
+                    {% csrf_token %}
+                    <input type="text" maxlength="200" class="textbox" name="message">
+                    <input type="hidden" name="userA" value="{{ user.username }}" name="userA">
+                    <input type="hidden" name="userB" value="{{ pk }}" name="userB">
+                    <button type="submit">送信</button>
+                </form>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+</body>
+</html>

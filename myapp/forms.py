@@ -1,20 +1,23 @@
+from dataclasses import fields
+from email import message
+from typing import Text
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from .models import CustomUser, Message
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class SignUpForm(UserCreationForm):
-        name = forms.CharField(
-        max_length=30,
-        required=False,
-        label='Username'
-    )
+    class Meta:
+        model = CustomUser
+        fields = ("username","password1","password2","email","image")
 
-        email = forms.EmailField(
-        max_length=254,
-        label='E-mailadress'
-    )
+class LoginForm(AuthenticationForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'password']
 
-class Meta:
-    model = User
-    fields = ('Username', 'email', 'password1', 'password2', )
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['message', 'userA', 'userB']
