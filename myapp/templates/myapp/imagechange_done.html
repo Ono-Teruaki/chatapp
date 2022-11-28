@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/setting.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/base.css' %}" />
     {% block extra_style %}{% endblock %}
     <title>DeMiAインターン</title>
 </head>
@@ -13,28 +13,14 @@
     <header class="header">
         <div class="header-container">
             <span class="header-container__title">
-                {% block header-title %}設定{% endblock %}
+                {% block header-title %}アイコン画像変更{% endblock %}
             </span>
         </div>
     </header>
     {% endblock %}
 
     {% block content %}
-    <div class="name_change">
-        <a href="{% url 'name_change' user.pk %}" class="button">名前変更</a>
-    </div>
-    <div class="email_change">
-        <a href="{%url 'email_change' user.pk %}" class="button">メールアドレス変更</a>
-    </div>
-    <div class="image_change">
-        <a href="{%url 'image_change' user.pk %}" class="button">アイコン変更</a>
-    </div>
-    <div class="password_change">
-        <a href="/password_change" class="button">パスワード変更</a>
-    </div>
-    <div class="logout">
-        <a href="/logout" class="button">ログアウト</a>
-    </div>
+    アイコン画像を変更しました。
     {% endblock %}
 
     {% block footer %}

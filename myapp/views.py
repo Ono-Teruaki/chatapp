@@ -1,7 +1,7 @@
 from audioop import reverse
 from re import I
 # from msilib.schema import ListView
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404, resolve_url
 from django.http import Http404
 
 from django.urls import reverse_lazy
@@ -9,7 +9,7 @@ from myapp.models import CustomUser, Message
 from .forms import SignUpForm, LoginForm, MessageForm
 from django.views.generic import TemplateView, ListView,UpdateView
 from django.views.generic.edit import CreateView 
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
@@ -33,9 +33,6 @@ class Friends(LoginRequiredMixin, ListView):
 
     def get_success_url(self):
         return reverse(kwargs={'pk': self.object.id})
-
-class Logout(LogoutView):
-    template_name = 'myapp/logout.html'
 
 class Talkroom(LoginRequiredMixin, UpdateView,):
     model = CustomUser
@@ -65,3 +62,46 @@ def talk_room(request, pk):
 
 def setting(request):
     return render(request, "myapp/setting.html")
+
+class NameChangeView(LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    template_name = "myapp/namechange.html"
+    fields = ['username']
+    success_url = reverse_lazy('name_change_done')
+
+@login_required
+def name_change_done(request):
+    return render(request, "myapp/namechange_done.html")
+
+class emailChangeView(LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    template_name = "myapp/emailchange.html"
+    fields = ['email']
+    success_url = reverse_lazy('email_change_done')
+
+@login_required
+def email_change_done(request):
+    return render(request, "myapp/emailchange_done.html")
+
+class ImageChangeView(LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    template_name = "myapp/imagechange.html"
+    fields = ['image']
+    success_url = reverse_lazy('image_change_done')
+
+@login_required
+def image_change_done(request):
+    return render(request, "myapp/imagechange_done.html")
+
+class PasswordChange(LoginRequiredMixin, PasswordChangeView):
+    model = CustomUser
+    success_url = reverse_lazy('password_change_done')
+    template_name = 'myapp/passwordchange.html'
+    
+
+class PasswordChangeDone(LoginRequiredMixin, PasswordChangeDoneView):
+    template_name = 'myapp/passwordchange_done.html'
+
+class Logout(LogoutView):
+    template_name = 'myapp/index.html'
+
