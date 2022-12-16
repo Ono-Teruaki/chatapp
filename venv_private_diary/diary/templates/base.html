@@ -13,6 +13,17 @@
 
 <body>
     {% block header%}{% endblock %}
+    <!--Navigation-->
+    <a class="navbar-brand" href="{%url 'diary:index'%}">PRYVATE DIARY</a>
+    <a class="nav-link" href="{% url 'diary:inquiry' %}">INQUIRY</a>
+
+{% if messages %}
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {{ message }}
+    </li>
+    {% endfor %}
+{% endif %}
 
     {% block contents%}{%endblock%}
 

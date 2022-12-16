@@ -1,3 +1,6 @@
+
+
+
 """
 Django settings for private_diary project.
 
@@ -9,8 +12,8 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -122,3 +125,52 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MESSAGE_TAGS = {
+    messages.ERROR:'alert alert-danger',
+    messages.WARNING:'alert alert-warning',
+    messages.SUCCESS:'alert alert-success',
+    messages.INFO:'alert alert-info',
+}
+
+#ロギング設定
+LOGGING = {
+    'version': 1, #1固定
+    'disable_existing_loggers':False,
+
+    #ロガーの設定
+    'loggers':{
+        'django':{
+            'handlers':['console'],
+            'level':'INFO'
+        },
+        #diaryアプリケーションが利用するロガー
+        'diary':{
+            'hundlers':['console'],
+            'level':'DEBUG',
+        }
+    },
+    #ハンドラの設定
+
+    'handlers':{
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'formatter':'dev'
+        },
+    },
+
+    #フォーマッタの設定
+    'formatters':{
+        'dev':{
+            'format':'\t'.join([
+                '%(asctime)s',
+                '[%(levelname)s]',
+                '%(pathname)s(Line:%(lineno)d)',
+                '%(message)s'
+            ])
+        },
+    }
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.consol.EmailBackend'
