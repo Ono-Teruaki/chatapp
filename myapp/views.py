@@ -1,9 +1,9 @@
 from audioop import reverse
 from re import I
-# from msilib.schema import ListView
 from django.shortcuts import redirect, render, get_object_or_404, resolve_url
 from django.http import Http404
-
+from django.contrib import messages
+from django.db.models import Q 
 from django.urls import reverse_lazy
 from myapp.models import CustomUser, Message
 from .forms import SignUpForm, LoginForm, MessageForm
@@ -31,15 +31,13 @@ class Friends(LoginRequiredMixin, ListView):
     model = CustomUser
     context_object_name = 'user_list'
 
-    def get_success_url(self):
-        return reverse(kwargs={'pk': self.object.id})
+    def get_queryset(self): 
+        queryset = CustomUser.objects.order_by('date_joined')
+        query = self.request.GET.get('query')
 
-class Talkroom(LoginRequiredMixin, UpdateView,):
-    model = CustomUser
-
-
-def friends(request):
-    return render(request, "myapp/friends.html")
+        if query:
+            queryset = queryset.filter(Q(username__icontains=query))
+        return queryset
 
 @login_required
 def talk_room(request, pk):

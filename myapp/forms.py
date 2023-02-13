@@ -15,7 +15,7 @@ class SignUpForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     class Meta:
         model = CustomUser
-        fields = ['username', 'password']
+        fields = ['username', 'email', 'password']
 
 class MessageForm(forms.ModelForm):
     class Meta:

@@ -1,3 +1,9 @@
+form {
+    display: flex;
+    width: 100%;
+}
+
+
 .image{
     border: 1px solid #000;
     border-radius: 50%;
@@ -71,7 +77,9 @@ body{
 .footer{
     width: 100vw;
     height: 64px;
+    z-index: 10000;
 }
+
 .footer-container{
     display: flex;
     position: fixed;
@@ -80,6 +88,8 @@ body{
     height: 64px;
     text-align: center;
     border-top: solid 1px #9b9b9b;
+    z-index: 10000;
+    background-color: white;
 }
 .footer-container__item{
     display: flex;
@@ -89,12 +99,16 @@ body{
     align-items: center;
     text-decoration: none;
     color: #9b9b9b;
+    color: rgba(255, 255, 255, 1);
 }
 .footer-item__link{
     width: 90%;
     height: 100%;
     margin: auto;
     text-decoration: none;
+    background-color: white;
+    z-index: 10000;
+    
 }
 .footer-item__icon{
     display: block;

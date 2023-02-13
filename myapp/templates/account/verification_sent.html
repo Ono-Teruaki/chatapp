@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/base.css' %}" />
+    {% block extra_style %}{% endblock %}
+    <title>DeMiAインターン</title>
+</head>
+<body>
+    {% block header %}
+    <header class="header">
+        <div class="header-container">
+            <span class="header-container__title">
+                {% block header-title %}メールアドレス認証{% endblock %}
+            </span>
+        </div>
+    </header>
+    {% endblock %}
+    {% block contents %}
+
+<div class="container">
+    <div class="row">
+        <div class="my-div-style">
+            <h1>メールアドレスを確認してください</h1>
+            確認のメールを送信しました。<br>メールに記載されたリンクをクリックして、ユーザー登録を完了させてください。
+        </div>
+    </div>
+</div>
+{% endblock %}
