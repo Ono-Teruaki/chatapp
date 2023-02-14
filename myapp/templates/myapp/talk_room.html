@@ -32,7 +32,8 @@
     {% endblock %}
     {% if messages %}
         {% for message in messages %}
-            {% if message.userA == user.username %}
+        <!-- 送信側と受信側のユーザー名が互いに一致するメッセージのみリストとして表示する -->
+            {% if message.userA == user.username %} <!-- 送信側か受信側かで分ける -->
                 {% if message.userB == pk %}
                     <div class="messagecontainer">
                         <div class="messageA">
