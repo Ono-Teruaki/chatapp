@@ -33,8 +33,8 @@
     {% if messages %}
         {% for message in messages %}
         <!-- 送信側と受信側のユーザー名が互いに一致するメッセージのみリストとして表示する -->
-            {% if message.userA == user.username %} <!-- 送信側か受信側かで分ける -->
-                {% if message.userB == pk %}
+            {% if message.sender.username == user.username %} <!-- 送信側か受信側かで分ける -->
+                {% if message.receiver.username == pk %}
                     <div class="messagecontainer">
                         <div class="messageA">
                             <div class="friend">
@@ -47,9 +47,9 @@
                         </div>
                     </div>
                 {% endif %}
-            {% elif message.userA == pk %}
-            {{ users.Tanaka.Username }}
-                {% if message.userB == user.username %} 
+            {% endif %}
+            {% if message.sender.username == pk %}
+                {% if message.receiver.username == user.username %} 
                     <div class="messagecontainer"> 
                         <div class="messageB"> 
                             <div class="friend">
@@ -64,7 +64,6 @@
                 {% endif %}
             {% endif %}
         {% endfor %}
-
     {% else %}
         <p>何か話しかけてみよう！</p>
     {% endif %}
@@ -78,8 +77,6 @@
                     {{ forms.as_p }}
                     {% csrf_token %}
                     <input type="text" maxlength="200" class="textbox" name="message">
-                    <input type="hidden" name="userA" value="{{ user.username }}" name="userA">
-                    <input type="hidden" name="userB" value="{{ pk }}" name="userB">
                     <button type="submit">送信</button>
                 </form>
             </div>
@@ -88,3 +85,6 @@
     {% endblock %}
 </body>
 </html>
+{% if debug %}
+    
+{% endif %}

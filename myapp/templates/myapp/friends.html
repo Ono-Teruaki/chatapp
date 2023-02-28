@@ -28,21 +28,28 @@
         <button>検索</button>
     </form>
 
-        <ul>
+    <ul>
         {% for friends in user_list %}
             {% if friends.username %}
                 {% if friends.username != user.username %}
                     <a href="{% url 'talk_room' friends.username %}" class="user_link">
                         <div class="user">
-                            <span class="image_icon"><img src="media/{{ friends.image }}" alt="" class="image"></span>
+                            <span class="image_icon"><img src="{{ friends.image.url }}" alt="" class="image"></span>
                             <span class="username">{{ friends.username }}</span>
+                            <p class="latest_message">
+                                {% if friends.latest_message %}
+                                    {{ friends.latest_message|truncatechars:13 }}
+                                {% else %}
+                                    まだメッセージはありません
+                                {% endif %}
+                            </p> 
                         </div>
                     </a>
-                {% endif %}
-                
+                {% endif %}    
             {% endif %}
-        {% endfor %}    
-        </ul>
+        {% endfor %}
+    </ul>
+
     {% else %}
     <form method="get">
         <input type="search" value="{{ request.GET.query }}" 
@@ -77,3 +84,6 @@
     {% endblock %}
 </body>
 </html>
+{% if debug %}
+    
+{% endif %}

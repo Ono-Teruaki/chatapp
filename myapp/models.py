@@ -12,6 +12,6 @@ class CustomUser(AbstractUser):
 #送信されたメッセージモデル
 class Message(models.Model):
     message = models.CharField(max_length=200, null=False, blank=False)
-    userA = models.CharField(max_length=150, null=True, blank=True)
-    userB = models.CharField(max_length=150, null=True, blank=True)
+    sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sent_messages')
+    receiver = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='received_messages')
     created_date = models.DateTimeField(default=timezone.now)
